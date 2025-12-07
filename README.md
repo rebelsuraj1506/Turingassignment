@@ -21,7 +21,7 @@ Both solution.cpp and solution_bf.cpp have been tested and produce identical res
 - Test 3: [5,5,5,5,5,5] → 18 ✓
 - Test 4: [1,1] → 2 ✓
 - Test 5: [1,2,3,4,1,2,3,4] → 8 ✓
-- Test 6: [7,7,7,7,8,8,8,8,9,9] → 30 ✓
+- Test 6: [7,7,7,7,8,8,8,8,9,9] → 34 ✓
 
 ## Difficulty Factors
 - Circular array handling requires modulo arithmetic
@@ -36,7 +36,7 @@ Both solution.cpp and solution_bf.cpp have been tested and produce identical res
 
 ## Testing
 - solution_bf.cpp: Brute force O(n³) for verification
-- solution.cpp: Optimal O(n²) accepted solution
+- solution.cpp: Optimal O(n²logn) accepted solution
 - Both produce identical outputs on all test cases
 
 ## Verification Checklist

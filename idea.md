@@ -7,9 +7,9 @@ I wanted to create a problem involving:
 3. A greedy/observation-based solution that isn't immediately obvious
 
 ## Initial Ideas (Rejected)
-1. Cyclic Array Sorting: Too similar to existing rotation problems
-2. Subsequence with Cyclic Property: Became too complex, hard to verify
-3. Cyclic XOR Balancing: Too straightforward once you see the pattern
+1. Naive Pair-Matching: Too similar to existing rotation problems
+2. Circular Sliding with Modulo: Became too complex, hard to verify
+3. Hash + Full Scan per Window: Too straightforward once you see the pattern
 
 ## Breakthrough Insight
 The key idea came from thinking about balanced subsegments in a cyclic array where:

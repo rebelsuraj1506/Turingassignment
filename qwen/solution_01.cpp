@@ -1,6 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+bool isBalanced(vector<int> seg) {
+    int n = seg.size();
+    if (n % 2 == 1) return false;
+    
+    sort(seg.begin(), seg.end());
+    
+    vector<bool> used(n, false);
+    for (int i = 0; i < n; i++) {
+        if (used[i]) continue;
+        bool found = false;
+        for (int j = i + 1; j < n; j++) {
+            if (!used[j] && seg[i] == seg[j]) {
+                used[i] = used[j] = true;
+                found = true;
+                break;
+            }
+        }
+        if (!found) return false;
+    }
+    return true;
+}
+
 int main() {
     int n;
     cin >> n;
@@ -12,22 +34,14 @@ int main() {
     
     int count = 0;
     
-    for (int start = 0; start < n; start++) {
-        unordered_map<int, int> freq;
-        
-        for (int len = 1; len <= n; len++) {
-            int pos = (start + len - 1) % n;
-            freq[a[pos]]++;
-            
-            if (len % 2 == 0) {
-                bool allEven = true;
-                for (auto [val, cnt] : freq) {
-                    if (cnt % 2 == 1) {
-                        allEven = false;
-                        break;
-                    }
-                }
-                if (allEven) count++;
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            vector<int> seg;
+            for (int k = i; k <= j; k++) {
+                seg.push_back(a[k]);
+            }
+            if (isBalanced(seg)) {
+                count++;
             }
         }
     }

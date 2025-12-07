@@ -7,26 +7,28 @@
 4. Ask Qwen to solve it in C++
 5. Save the conversation link and code
 
-## Attempt 1
-Link: To be filled after running on Qwen
-Strategy: Direct implementation without understanding the key insight
-Expected failure: Likely tries O(n³) approach or incorrect pairing logic
+---
 
-## Attempt 2  
-Link: To be filled after running on Qwen
-Strategy: After first failure, might try DP or segment tree approach
-Expected failure: Overcomplicated solution with bugs in circular handling
+## Attempt 1 (Naive Pair-Matching)
+> **Qwen's Reasoning**:  
+> "If the segment length is even, we can sort and greedily pair equal elements. If all can be paired, it’s balanced."
 
-## Attempt 3
-Link: To be filled after running on Qwen
-Strategy: Might get closer but miss the frequency observation
-Expected failure: Counts full array n times instead of once
+*(Flaw: Fails when duplicates are not adjacent after sorting, e.g., [1,2,1,2] → sorted [1,1,2,2] works, but logic is inefficient and misapplied in nested loops. Also, misses that frequency parity—not pairing—is the real condition.)*
 
-## Why Qwen Fails
+---
 
-The problem has several traps:
-1. Circular array: Easy to make indexing errors
-2. Balanced definition: Seems to require complex matching
-3. Full array counting: The length=n case creates duplicates
-4. Appears to need advanced DS: Looks like segment trees needed
-5. Subtle correctness: Even frequency condition is tricky
+## Attempt 2 (Circular Sliding with Modulo)
+> **Qwen's Reasoning**:  
+> "Let’s treat the array as circular! Use a sliding window from each start, track odd counts, and increment when oddCount == 0 on even lengths."
+
+*(Flaw: Incorrectly assumes circular subarrays are allowed. Problem asks for *contiguous* (linear) subarrays only. Also, loop bound `len < n` skips full-length subarray in main loop, then adds it separately—but with wrong condition.)*
+
+---
+
+## Attempt 3 (Hash + Full Scan per Window)
+> **Qwen's Reasoning**:  
+> "For each start, grow the window and check if all frequencies are even whenever length is even."
+
+*(Flaw: Uses `(start + len) % n` → introduces circularity again. Also, inner loop starts at `len = 1` but accesses `a[(start+len)%n]`, skipping `a[start]` entirely. Thus, no subarray includes its starting element!)*
+
+---

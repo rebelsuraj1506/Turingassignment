@@ -1,0 +1,5 @@
+{
+    "time": 2,
+    "space": 256,
+    "note": "Time limit of 2 seconds should allow O(n^2 log n) solutions to pass comfortably for n ≤ 3000"
+  }

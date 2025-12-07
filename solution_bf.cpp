@@ -1,34 +1,51 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Brute force: check all subsegments explicitly
+bool canPartition(vector<int> seg) {
+    if (seg.size() % 2 == 1) return false;
+    
+    map<int, int> freq;
+    for (int x : seg) {
+        freq[x]++;
+    }
+    
+    // Check all frequencies are even
+    for (auto [val, cnt] : freq) {
+        if (cnt % 2 == 1) return false;
+    }
+    return true;
+}
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     
-    int N, M, K, Q;
-    cin >> N >> M >> K >> Q;
+    int n;
+    cin >> n;
     
-    vector<tuple> queries;
-    for (int i = 0; i < Q; i++) {
-        long long t;
-        int r, c, col;
-        cin >> t >> r >> c >> col;
-        queries.push_back({t, r, c, col});
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
     }
     
-    // Try all possible initial configurations (only works for tiny grids)
-    // This is intentionally inefficient for comparison
+    int count = 0;
     
-    // For now, just use a greedy approach
-    vector<vector> grid(N + 1, vector(M + 1, 1));
-    
-    cout << "POSSIBLE\n";
-    for (int i = 1; i <= N; i++) {
-        for (int j = 1; j <= M; j++) {
-            cout << grid[i][j];
-            if (j < M) cout << " ";
+    // Try all starting positions and lengths
+    for (int start = 0; start < n; start++) {
+        for (int len = 2; len <= n; len += 2) {  // Only even lengths
+            vector<int> segment;
+            for (int i = 0; i < len; i++) {
+                segment.push_back(a[(start + i) % n]);
+            }
+            
+            if (canPartition(segment)) {
+                count++;
+            }
         }
-        cout << "\n";
     }
+    
+    cout << count << endl;
     
     return 0;
+}

@@ -1,109 +1,79 @@
-# Grid Color Restoration
+# Problem: Cyclic Subsegment Balancing
 
 ## Problem Statement
 
-You are studying an ancient civilization's color-changing grid system. The system consists of an N×M grid where each cell contains one of K possible colors (numbered 1 to K).
+You are given a circular array **a** of **n** integers (where **a[1]** follows **a[n]**).
 
-The grid follows a peculiar evolution rule: Every second, **exactly one cell** changes its color. The cell that changes is determined by a specific pattern:
-- At time t=1, the cell at position (1, 1) changes to a new color
-- At time t=2, the cell at position (1, 2) changes
-- The pattern continues row by row: (1,3), (1,4), ..., (1,M), (2,1), (2,2), ..., (N,M)
-- After reaching (N,M), it wraps back to (1,1)
+A subsegment of the circular array is called **balanced** if:
+1. It has even length
+2. You can partition its elements into pairs such that both elements in each pair are equal
 
-When a cell changes color, it becomes a color **different** from its current color (chosen uniformly at random from the K-1 other colors).
+Note: A subsegment in a circular array can wrap around. For example, if n=5, the subsegment from position 4 to position 2 contains elements: a[4], a[5], a[1], a[2].
 
-You have discovered Q ancient "snapshots" - each snapshot tells you that at time T_i, the cell at position (R_i, C_i) had color COL_i.
-
-Your task: Determine if there exists a valid initial configuration (time t=0) of the grid that is consistent with all Q snapshots. If yes, output any valid initial configuration. If multiple valid configurations exist, output any one.
+Your task is to count the number of balanced subsegments in the circular array.
 
 ## Input Format
 
-The first line contains four integers: N, M, K, Q (2 ≤ N, M ≤ 1000, 2 ≤ K ≤ 10^9, 1 ≤ Q ≤ min(200000, N×M))
-- N: number of rows
-- M: number of columns  
-- K: number of possible colors
-- Q: number of snapshots
+The first line contains a single integer **n** (2 ≤ n ≤ 3000) — the length of the array.
 
-The next Q lines each contain four integers: T_i, R_i, C_i, COL_i (0 ≤ T_i ≤ 10^18, 1 ≤ R_i ≤ N, 1 ≤ C_i ≤ M, 1 ≤ COL_i ≤ K)
-- T_i: the time of the snapshot
-- R_i, C_i: the position of the cell
-- COL_i: the color of that cell at that time
+The second line contains **n** integers **a₁, a₂, ..., aₙ** (1 ≤ aᵢ ≤ 10⁹) — the elements of the circular array.
 
 ## Output Format
 
-If no valid initial configuration exists, output a single line: `IMPOSSIBLE`
-
-Otherwise, output `POSSIBLE` on the first line, followed by N lines each containing M space-separated integers representing the colors of the grid at time t=0.
-
-## Constraints
-
-- 2 ≤ N, M ≤ 1000
-- 2 ≤ K ≤ 10^9
-- 1 ≤ Q ≤ min(200000, N×M)
-- 0 ≤ T_i ≤ 10^18
-- 1 ≤ R_i ≤ N, 1 ≤ C_i ≤ M
-- 1 ≤ COL_i ≤ K
-- Memory limit: 256 MB
-- Time limit: 2 seconds
+Print a single integer — the number of balanced subsegments.
 
 ## Examples
 
 ### Example 1
 **Input:**
 ```
-2 2 3 3
-0 1 1 1
-1 1 1 2
-2 1 2 1
+4
+1 2 1 2
 ```
 
 **Output:**
 ```
-POSSIBLE
-1 1
-1 1
+4
 ```
 
 **Explanation:**
-- At t=0: Grid is [[1,1],[1,1]]
-- At t=1: Cell (1,1) changes from 1 to 2: [[2,1],[1,1]]
-- At t=2: Cell (1,2) changes from 1 to 1 (wraps around to 1): [[2,1],[1,1]]
-
-Actually, cell (1,2) must change to something different, so:
-- At t=2: Cell (1,2) changes from 1 to something ≠ 1
-
-Let me reconsider...
-
-### Example 1 (Corrected)
-**Input:**
-```
-2 2 3 2
-0 1 1 1
-1 1 1 2
-```
-
-**Output:**
-```
-POSSIBLE
-1 1
-1 1
-```
+The balanced subsegments are:
+- [1,1] (positions 1-3): can be partitioned into {1,1}
+- [2,2] (positions 2-4): can be partitioned into {2,2}
+- [1,2,1,2] (positions 1-4): can be partitioned into {1,1} and {2,2}
+- [2,1,2,1] (positions 2-1): can be partitioned into {1,1} and {2,2}
 
 ### Example 2
 **Input:**
 ```
-2 2 3 3
-0 1 1 1
-1 1 1 1
-2 1 2 1
+5
+3 3 3 1 1
 ```
 
 **Output:**
 ```
-IMPOSSIBLE
+3
 ```
 
 **Explanation:**
-At t=0, cell (1,1) is color 1.
-At t=1, cell (1,1) must change to a different color (not 1), but the snapshot says it's still 1.
-This is impossible.
+- [3,3] at positions (1,2): {3,3}
+- [3,3] at positions (2,3): {3,3}
+- [1,1] at positions (4,5): {1,1}
+
+### Example 3
+**Input:**
+```
+6
+5 5 5 5 5 5
+```
+
+**Output:**
+```
+9
+```
+
+## Notes
+
+- A subsegment must contain at least 2 elements
+- Two subsegments are different if they start at different positions or have different lengths
+- Remember that the array is circular

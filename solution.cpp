@@ -15,17 +15,17 @@ int main() {
     
     int count = 0;
     
-    // Try each starting position
+    // For each starting position
     for (int start = 0; start < n; start++) {
         map<int, int> freq;
         int oddCount = 0;
         
-        // Try each length from this starting position
+        // Try all lengths from 1 to n
         for (int len = 1; len <= n; len++) {
             int pos = (start + len - 1) % n;
             int element = a[pos];
             
-            // Update frequency
+            // Update frequency and odd count
             if (freq[element] % 2 == 1) {
                 oddCount--;
             } else {
@@ -33,7 +33,7 @@ int main() {
             }
             freq[element]++;
             
-            // Check if balanced (even length and all frequencies even)
+            // Check if balanced
             if (len % 2 == 0 && oddCount == 0) {
                 count++;
             }

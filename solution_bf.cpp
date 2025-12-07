@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Brute force: check all subsegments explicitly
 bool canPartition(vector<int> seg) {
     if (seg.size() % 2 == 1) return false;
     
@@ -10,7 +9,6 @@ bool canPartition(vector<int> seg) {
         freq[x]++;
     }
     
-    // Check all frequencies are even
     for (auto [val, cnt] : freq) {
         if (cnt % 2 == 1) return false;
     }
@@ -31,9 +29,9 @@ int main() {
     
     int count = 0;
     
-    // Try all starting positions and lengths
+    // Try all starting positions and all even lengths
     for (int start = 0; start < n; start++) {
-        for (int len = 2; len <= n; len += 2) {  // Only even lengths
+        for (int len = 2; len <= n; len += 2) {
             vector<int> segment;
             for (int i = 0; i < len; i++) {
                 segment.push_back(a[(start + i) % n]);

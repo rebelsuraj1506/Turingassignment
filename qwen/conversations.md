@@ -16,8 +16,6 @@ I’ll check every contiguous subarray in the linear array. For each, I’ll sor
 ### 💬 Qwen (Attempt 2 – “Circular” with Modulo and Odd Count):
 Ah! I forgot it’s circular. Let me fix it: for each start, I’ll simulate a sliding window using modulo indexing. I’ll track how many elements have odd frequency. If that count is zero and length is even, it’s balanced.
 
-✅ *Code generated: `attempt2_by_qwen.cpp`*
-
 > **Test on input**:  
 > `4`  
 > `1 2 3 1`  
@@ -77,8 +75,6 @@ Ah! I forgot it’s circular. Let me fix it: for each start, I’ll simulate a s
 
 ### 💬 Qwen (Attempt 3 – Hash Map with Full Rescan):
 Let me simplify: for each start, I’ll grow the window and use a hash map. Whenever length is even, I’ll scan all frequencies to check if all are even.
-
-✅ *Code generated: `attempt3_by_qwen.cpp`*
 
 > **Test on input**:  
 > `4`  
